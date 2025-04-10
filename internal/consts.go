@@ -1,3 +1,4 @@
 package internal
 
-const ServiceName = "microservice-template"
+const ServiceName = "static-files"
+const RootBucketName = "root"
