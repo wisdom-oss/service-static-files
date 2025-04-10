@@ -2,11 +2,13 @@ package v1
 
 import (
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/minio/minio-go/v7"
 
+	"microservice/internal"
 	objectStorage "microservice/internal/minio"
 )
 
@@ -14,7 +16,11 @@ import (
 // and returns it to the user.
 func GetFile(c *gin.Context) {
 	bucket := c.Param("bucket")
-	fileName := c.Param("file")
+	fileName := c.Param("filename")
+
+	if strings.TrimSpace(bucket) == "" {
+		bucket = internal.DefaultMinioPublicBucketName
+	}
 
 	info, err := objectStorage.Client().StatObject(c, bucket, fileName, defaultStatOpts)
 	if err != nil {
