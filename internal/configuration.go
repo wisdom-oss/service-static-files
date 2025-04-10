@@ -48,6 +48,10 @@ const (
 	ConfigKey_Http_Port             = "http.port"
 	ConfigKey_Oidc_Authority        = "oidc.authority"
 	ConfigKey_Require_Authorization = "authorization.required"
+	ConfigKey_Minio_Host            = "minio.endpoint"
+	ConfigKey_Minio_ClientID        = "minio.client-id"
+	ConfigKey_Minio_ClientSecret    = "minio.client-secret" //nolint:gosec
+	ConfigKey_Minio_UseSSL          = "minio.use-ssl"
 )
 
 // envAliases contains all allowed environment variable names that are used to
@@ -62,6 +66,10 @@ var envAliases = map[string][]string{
 	ConfigKey_Postgres_SSLMode:      {"PGSSLMODE", "PG_SSLMODE", "POSTGRES_SSLMODE", "DB_SSLMODE"},
 	ConfigKey_Oidc_Authority:        {"OIDC_AUTHORITY"},
 	ConfigKey_Require_Authorization: {"AUTH_REQUIRED"},
+	ConfigKey_Minio_Host:            {"MINIO_HOST", "MINIO_ENDPOINT"},
+	ConfigKey_Minio_ClientID:        {"MINIO_CLIENT_ID", "MINIO_USER"},
+	ConfigKey_Minio_ClientSecret:    {"MINIO_CLIENT_SECRET", "MINIO_PASSWORD"},
+	ConfigKey_Minio_UseSSL:          {"MINIO_FORCE_SSL"},
 }
 
 // ParseConfiguration initializes the [Configuration] variable and reads the
@@ -119,6 +127,9 @@ func setDefaults(instance *viper.Viper) {
 	// setup the authorization to be enabled by default (however only in release
 	// routers this will work)
 	instance.SetDefault(ConfigKey_Require_Authorization, defaultAuthorizationRequired)
+
+	// setup minio to ignore ssl by default
+	instance.SetDefault(ConfigKey_Minio_UseSSL, false)
 
 }
 
