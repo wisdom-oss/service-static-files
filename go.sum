@@ -33,6 +33,8 @@ github.com/gabriel-vasile/mimetype v1.4.8 h1:FfZ3gj38NjllZIeJAmMhr+qKL8Wu+nOoI3G
 github.com/gabriel-vasile/mimetype v1.4.8/go.mod h1:ByKUIKGjh1ODkGM1asKUbQZOLGrPjydw3hYPU2YU9t8=
 github.com/getkin/kin-openapi v0.128.0 h1:jqq3D9vC9pPq1dGcOCv7yOp1DaEe7c/T1vzcLbITSp4=
 github.com/getkin/kin-openapi v0.128.0/go.mod h1:OZrfXzUfGrNbsKj+xmFBx6E5c6yH3At/tAKSc2UszXM=
+github.com/gin-contrib/gzip v1.2.3 h1:dAhT722RuEG330ce2agAs75z7yB+NKvX/ZM1r8w0u2U=
+github.com/gin-contrib/gzip v1.2.3/go.mod h1:ad72i4Bzmaypk8M762gNXa2wkxxjbz0icRNnuLJ9a/c=
 github.com/gin-contrib/requestid v1.0.4 h1:h9u+YSCMgrDcn2QlHn9c6P/Zwy4WdXqZLFTmlIAJWpA=
 github.com/gin-contrib/requestid v1.0.4/go.mod h1:2/3cAmLKQ9E2Pr1IrSPR7K8AWiJORo0hLvs0keKsMJw=
 github.com/gin-contrib/requestid v1.0.5 h1:oye4jWPpTmJHLepQWzb36lFZkKzl+gf8R0K/ButxJUY=
