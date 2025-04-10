@@ -34,24 +34,26 @@ const (
 	defaultPostgresDatabase      = "wisdom"
 	defaultOIDCAuthority         = "http://backend/api/auth/"
 	defaultAuthorizationRequired = true
+	DefaultMinioPublicBucketName = "award-public-files"
 )
 
 // Keys for common configuration entries.
 const (
-	ConfigKey_Postgres_User         = "postgres.user"
-	ConfigKey_Postgres_Password     = "postgres.password"
-	ConfigKey_Postgres_Host         = "postgres.host"
-	ConfigKey_Postgres_Port         = "postgres.port"
-	ConfigKey_Postgres_SSLMode      = "postgres.sslmode"
-	ConfigKey_Postgres_Database     = "postgres.database"
-	ConfigKey_Http_Host             = "http.host"
-	ConfigKey_Http_Port             = "http.port"
-	ConfigKey_Oidc_Authority        = "oidc.authority"
-	ConfigKey_Require_Authorization = "authorization.required"
-	ConfigKey_Minio_Host            = "minio.endpoint"
-	ConfigKey_Minio_ClientID        = "minio.client-id"
-	ConfigKey_Minio_ClientSecret    = "minio.client-secret" //nolint:gosec
-	ConfigKey_Minio_UseSSL          = "minio.use-ssl"
+	ConfigKey_Postgres_User          = "postgres.user"
+	ConfigKey_Postgres_Password      = "postgres.password"
+	ConfigKey_Postgres_Host          = "postgres.host"
+	ConfigKey_Postgres_Port          = "postgres.port"
+	ConfigKey_Postgres_SSLMode       = "postgres.sslmode"
+	ConfigKey_Postgres_Database      = "postgres.database"
+	ConfigKey_Http_Host              = "http.host"
+	ConfigKey_Http_Port              = "http.port"
+	ConfigKey_Oidc_Authority         = "oidc.authority"
+	ConfigKey_Require_Authorization  = "authorization.required"
+	ConfigKey_Minio_Host             = "minio.endpoint"
+	ConfigKey_Minio_ClientID         = "minio.client-id"
+	ConfigKey_Minio_ClientSecret     = "minio.client-secret" //nolint:gosec
+	ConfigKey_Minio_UseSSL           = "minio.use-ssl"
+	ConfigKey_Minio_PublicBucketName = "minio.public-bucket"
 )
 
 // envAliases contains all allowed environment variable names that are used to
@@ -60,16 +62,17 @@ var envAliases = map[string][]string{
 	ConfigKey_Postgres_User: {"PGUSER", "PG_USER", "POSTGRES_USER", "DB_USER"},
 	ConfigKey_Postgres_Password: {"PGPASSWORD", "PG_PASSWORD", "PGPASS", "PG_PASS", "POSTGRES_PASS",
 		"POSTGRES_PASSWORD", "DB_PASS", "DB_PASSWORD"},
-	ConfigKey_Postgres_Host:         {"PGHOST", "PG_HOST", "POSTGRES_HOST", "DB_HOST"},
-	ConfigKey_Postgres_Port:         {"PGPORT", "PG_PORT", "POSTGRES_PORT", "DB_PORT"},
-	ConfigKey_Postgres_Database:     {"PGDATABASE", "PG_DATABASE", "POSTGRES_DATABASE", "DB_DATABASE"},
-	ConfigKey_Postgres_SSLMode:      {"PGSSLMODE", "PG_SSLMODE", "POSTGRES_SSLMODE", "DB_SSLMODE"},
-	ConfigKey_Oidc_Authority:        {"OIDC_AUTHORITY"},
-	ConfigKey_Require_Authorization: {"AUTH_REQUIRED"},
-	ConfigKey_Minio_Host:            {"MINIO_HOST", "MINIO_ENDPOINT"},
-	ConfigKey_Minio_ClientID:        {"MINIO_CLIENT_ID", "MINIO_USER"},
-	ConfigKey_Minio_ClientSecret:    {"MINIO_CLIENT_SECRET", "MINIO_PASSWORD"},
-	ConfigKey_Minio_UseSSL:          {"MINIO_FORCE_SSL"},
+	ConfigKey_Postgres_Host:          {"PGHOST", "PG_HOST", "POSTGRES_HOST", "DB_HOST"},
+	ConfigKey_Postgres_Port:          {"PGPORT", "PG_PORT", "POSTGRES_PORT", "DB_PORT"},
+	ConfigKey_Postgres_Database:      {"PGDATABASE", "PG_DATABASE", "POSTGRES_DATABASE", "DB_DATABASE"},
+	ConfigKey_Postgres_SSLMode:       {"PGSSLMODE", "PG_SSLMODE", "POSTGRES_SSLMODE", "DB_SSLMODE"},
+	ConfigKey_Oidc_Authority:         {"OIDC_AUTHORITY"},
+	ConfigKey_Require_Authorization:  {"AUTH_REQUIRED"},
+	ConfigKey_Minio_Host:             {"MINIO_HOST", "MINIO_ENDPOINT"},
+	ConfigKey_Minio_ClientID:         {"MINIO_CLIENT_ID", "MINIO_USER"},
+	ConfigKey_Minio_ClientSecret:     {"MINIO_CLIENT_SECRET", "MINIO_PASSWORD"},
+	ConfigKey_Minio_UseSSL:           {"MINIO_FORCE_SSL"},
+	ConfigKey_Minio_PublicBucketName: {"MINIO_PUBLIC_BUCKET"},
 }
 
 // ParseConfiguration initializes the [Configuration] variable and reads the
@@ -130,6 +133,7 @@ func setDefaults(instance *viper.Viper) {
 
 	// setup minio to ignore ssl by default
 	instance.SetDefault(ConfigKey_Minio_UseSSL, false)
+	instance.SetDefault(ConfigKey_Minio_PublicBucketName, DefaultMinioPublicBucketName)
 
 }
 
