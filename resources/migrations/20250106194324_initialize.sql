@@ -2,7 +2,11 @@
 -- +goose StatementBegin
 CREATE SCHEMA IF NOT EXISTS auth;
 
+DO $$ BEGIN
 CREATE TYPE auth.scope_level AS ENUM('read', 'write', 'delete', '*');
+EXCEPTION
+    WHEN duplicate_object THEN NULL;
+END $$;
 
 CREATE TABLE IF NOT EXISTS
     auth.services (
