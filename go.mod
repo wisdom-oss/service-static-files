@@ -6,7 +6,7 @@ require (
 	github.com/getkin/kin-openapi v0.128.0
 	github.com/gin-contrib/requestid v1.0.4
 	github.com/gin-gonic/gin v1.10.0
-	github.com/jackc/pgx/v5 v5.7.2
+	github.com/jackc/pgx/v5 v5.7.4
 	github.com/joho/godotenv v1.5.1
 	github.com/qustavo/dotsql v1.2.0
 	github.com/stretchr/testify v1.10.0
