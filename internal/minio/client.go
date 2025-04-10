@@ -1,6 +1,7 @@
 package objectStorage
 
 import (
+	"context"
 	"errors"
 	"log/slog"
 	"time"
@@ -62,6 +63,18 @@ func Connect() (err error) {
 	_, _ = c.HealthCheck(healthcheckDuration)
 	if c.IsOffline() {
 		return errMinioOffline
+	}
+
+	bucketExists, err := c.BucketExists(context.Background(), internal.DefaultMinioPublicBucketName)
+	if err != nil {
+		return err
+	}
+
+	if !bucketExists {
+		err = c.MakeBucket(context.Background(), internal.DefaultMinioPublicBucketName, minio.MakeBucketOptions{})
+		if err != nil {
+			return err
+		}
 	}
 
 	return nil
