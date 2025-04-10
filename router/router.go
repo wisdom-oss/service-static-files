@@ -2,7 +2,9 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/wisdom-oss/common-go/v3/middleware/gin/jwt"
 
+	app "microservice/internal"
 	internal "microservice/internal/router"
 	v1Routes "microservice/routes/v1"
 )
@@ -19,10 +21,15 @@ func Configure() (*gin.Engine, error) {
 		return nil, err
 	}
 
-	// TODO: Add your routes in this group
+	authorize := jwt.ScopeRequirer{}
+	authorize.Configure(app.ServiceName)
+
 	v1 := r.Group("/v1")
 	{
-		v1.GET("/", v1Routes.BasicHandler)
+		v1.GET("/public/*filename", v1Routes.GetFile)
+		v1.GET("/:bucket/*filename", authorize.RequireRead, v1Routes.GetFile)
+		v1.PUT("/:bucket/*basepath", authorize.RequireWrite, v1Routes.Upload)
+		v1.DELETE("/:bucket/*filename", authorize.RequireDelete, v1Routes.DeleteFile)
 	}
 
 	return r, nil

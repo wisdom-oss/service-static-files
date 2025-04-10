@@ -15,6 +15,7 @@ import (
 
 	"microservice/internal"
 	"microservice/internal/db"
+	objectStorage "microservice/internal/minio"
 	"microservice/router"
 )
 
@@ -40,6 +41,13 @@ func main() {
 	err = db.MigrateDatabase()
 	if err != nil {
 		slog.Error("failed to execute database migrations", "error", err)
+		os.Exit(1)
+	}
+
+	// connect to minio
+	err = objectStorage.Connect()
+	if err != nil {
+		slog.Error("unable to connect to object storage", "error", err)
 		os.Exit(1)
 	}
 
