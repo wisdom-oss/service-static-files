@@ -14,3 +14,10 @@ var ErrFileNotFound = types.ServiceError{
 	Title:  "File not found",
 	Detail: "The file does not exist on the server. Please check your request",
 }
+
+var ErrBucketNotFound = types.ServiceError{
+	Type:   "",
+	Status: http.StatusNotFound,
+	Title:  "Unknown Bucket",
+	Detail: "The specified bucket is not known",
+}
