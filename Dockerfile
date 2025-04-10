@@ -22,6 +22,7 @@ COPY --from=build-service /etc/ssl/cert.pem /etc/ssl/cert.pem
 COPY --from=compressor /compressed-service /service
 ENTRYPOINT ["/service"]
 EXPOSE 8000
+ENV GIN_MODE=release
 LABEL traefik.enable=true
 LABEL traefik.http.routers.staticFiles.middlewares=staticFiles
 LABEL traefik.http.routers.staticFiles.rule="PathPrefix(`/api/files`)"
